@@ -1,0 +1,9 @@
+# Next Cache folder
+/.next/
+
+# Node modules folder
+/node_modules
+
+# Public folder
+/public
+
