@@ -16,10 +16,6 @@ export default function Register() {
     await signIn('google')
   }
 
-  /* async function handleRegister() {
-
-  } */
-
   return (
     <Container>
       <Header>

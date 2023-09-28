@@ -7,3 +7,5 @@
 # Public folder
 /public
 
+*.d.ts
+
