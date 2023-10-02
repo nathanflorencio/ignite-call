@@ -6,25 +6,25 @@ import { z } from 'zod'
 import { Form, FormAnnotation } from './styles'
 import { useRouter } from 'next/router'
 
-const claimUsernameFormSchema = z.object({
+const ClaimUsernameFormSchema = z.object({
   username: z
     .string()
     .min(3, { message: 'O usuário precisa ter pelo menos 3 letras.' })
-    .regex(/^([a-z\\\\-]+)$/i, {
-      message: 'O usuário pode ter apenas letras e hífens.',
+    .regex(/^([a-z\\-]+)$/i, {
+      message: 'O usuário pode ter apenas letras e hifens.',
     })
     .transform((username) => username.toLowerCase()),
 })
 
-type ClaimUsernameFormData = z.infer<typeof claimUsernameFormSchema>
+type ClaimUsernameFormData = z.infer<typeof ClaimUsernameFormSchema>
 
-export function ClaimUsernamForm() {
+export function ClaimUsernameForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ClaimUsernameFormData>({
-    resolver: zodResolver(claimUsernameFormSchema),
+    resolver: zodResolver(ClaimUsernameFormSchema),
   })
 
   const router = useRouter()
@@ -32,7 +32,7 @@ export function ClaimUsernamForm() {
   async function handleClaimUsername(data: ClaimUsernameFormData) {
     const { username } = data
 
-    await router.push(`/register?username=${username}`)
+    router.push(`/register?username=${username}`)
   }
 
   return (
@@ -50,6 +50,7 @@ export function ClaimUsernamForm() {
           <ArrowRight />
         </Button>
       </Form>
+
       <FormAnnotation>
         <Text size="sm">
           {errors.username

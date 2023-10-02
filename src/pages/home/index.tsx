@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Container, Hero, Preview } from './styles'
 
 import previewImage from '../../assets/app-preview.png'
-import { ClaimUsernamForm } from './components/ClaimUsernameForm'
+import { ClaimUsernameForm } from './components/ClaimUsernameForm'
 import { NextSeo } from 'next-seo'
 
 export default function Home() {
@@ -11,9 +11,9 @@ export default function Home() {
     <>
       <NextSeo
         title="Descomplique sua agenda | Ignite Call"
-        description="Conecte seu calendário e permita que as pessoas marquem agendamentos
-        no seu tempo livre."
+        description="Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre."
       />
+
       <Container>
         <Hero>
           <Heading as="h1" size="4xl">
@@ -24,7 +24,7 @@ export default function Home() {
             no seu tempo livre.
           </Text>
 
-          <ClaimUsernamForm />
+          <ClaimUsernameForm />
         </Hero>
 
         <Preview>

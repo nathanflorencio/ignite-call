@@ -1,21 +1,22 @@
-import { Button, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
-import { ArrowRight } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Container, Form, FormError, Header } from './styles'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { api } from '../../lib/axios'
+import { Button, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
 import { AxiosError } from 'axios'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
+import { ArrowRight } from 'phosphor-react'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { api } from '../../lib/axios'
+
+import { Container, Form, FormError, Header } from './styles'
 
 const registerFormSchema = z.object({
   username: z
     .string()
     .min(3, { message: 'O usuário precisa ter pelo menos 3 letras.' })
-    .regex(/^([a-z\\\\-]+)$/i, {
-      message: 'O usuário pode ter apenas letras e hífens.',
+    .regex(/^([a-z\\-]+)$/i, {
+      message: 'O usuário pode ter apenas letras e hifens.',
     })
     .transform((username) => username.toLowerCase()),
   name: z
@@ -52,7 +53,7 @@ export default function Register() {
 
       await router.push('/register/connect-calendar')
     } catch (err) {
-      if (err instanceof AxiosError && err.response?.data?.message) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
         alert(err.response.data.message)
         return
       }
@@ -64,6 +65,7 @@ export default function Register() {
   return (
     <>
       <NextSeo title="Crie uma conta | Ignite Call" />
+
       <Container>
         <Header>
           <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>

@@ -81,7 +81,6 @@ export function PrismaAdapter(
         avatar_url: user.avatar_url!,
       }
     },
-
     async getUserByAccount({ providerAccountId, provider }) {
       const account = await prisma.account.findUnique({
         where: {

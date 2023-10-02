@@ -20,10 +20,11 @@ export default function App({
           openGraph={{
             type: 'website',
             locale: 'pt_BR',
-            url: 'https://ignite-call.rocketseat.com.br/',
+            url: 'https://www.ignite-call.rocketseat.com.br',
             siteName: 'Ignite Call',
           }}
         />
+
         <Component {...pageProps} />
       </SessionProvider>
     </QueryClientProvider>

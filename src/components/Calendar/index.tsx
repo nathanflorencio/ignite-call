@@ -1,6 +1,10 @@
+import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
+import { useRouter } from 'next/router'
 import { CaretLeft, CaretRight } from 'phosphor-react'
 import { useMemo, useState } from 'react'
+import { api } from '../../lib/axios'
+import { getWeekDays } from '../../utils/get-week-days'
 import {
   CalendarActions,
   CalendarBody,
@@ -9,10 +13,6 @@ import {
   CalendarHeader,
   CalendarTitle,
 } from './styles'
-import { getWeekDays } from '../../utils/get-week-days'
-import { useQuery } from '@tanstack/react-query'
-import { api } from '../../lib/axios'
-import { useRouter } from 'next/router'
 
 interface CalendarWeek {
   week: number
@@ -34,7 +34,7 @@ interface CalendarProps {
   onDateSelected: (date: Date) => void
 }
 
-export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
+export function Calendar({ onDateSelected }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs().set('date', 1)
   })
@@ -42,15 +42,15 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
   const router = useRouter()
 
   function handlePreviousMonth() {
-    const previousMonthDate = currentDate.subtract(1, 'month')
+    const previousMonth = currentDate.subtract(1, 'month')
 
-    setCurrentDate(previousMonthDate)
+    setCurrentDate(previousMonth)
   }
 
   function handleNextMonth() {
-    const previousMonthDate = currentDate.add(1, 'month')
+    const nextMonth = currentDate.add(1, 'month')
 
-    setCurrentDate(previousMonthDate)
+    setCurrentDate(nextMonth)
   }
 
   const shortWeekDays = getWeekDays({ short: true })
@@ -95,16 +95,16 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
       })
       .reverse()
 
-    const lastDayInCurrenthMonth = currentDate.set(
+    const lastDayInCurrentMonth = currentDate.set(
       'date',
       currentDate.daysInMonth(),
     )
-    const lastWeekDay = lastDayInCurrenthMonth.get('day')
+    const lastWeekDay = lastDayInCurrentMonth.get('day')
 
     const nextMonthFillArray = Array.from({
       length: 7 - (lastWeekDay + 1),
     }).map((_, i) => {
-      return lastDayInCurrenthMonth.add(i + 1, 'day')
+      return lastDayInCurrentMonth.add(i + 1, 'day')
     })
 
     const calendarDays = [
@@ -117,7 +117,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
           disabled:
             date.endOf('day').isBefore(new Date()) ||
             blockedDates.blockedWeekDays.includes(date.get('day')) ||
-            blockedDates.blockedDates.includes(date.get('day')),
+            blockedDates.blockedDates.includes(date.get('date')),
         }
       }),
       ...nextMonthFillArray.map((date) => {

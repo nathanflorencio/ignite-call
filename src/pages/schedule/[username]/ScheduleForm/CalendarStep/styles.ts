@@ -1,10 +1,9 @@
-import { Box, Text, styled } from '@ignite-ui/react'
+import { Box, styled, Text } from '@ignite-ui/react'
 
 export const Container = styled(Box, {
   margin: '$6 auto 0',
   padding: 0,
   display: 'grid',
-  maxWidth: '100%',
   position: 'relative',
 
   variants: {
